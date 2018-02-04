@@ -1,1 +1,0 @@
-/home/paul/Documents/technolo.co/frontend/tmp/broccoli_merge_trees-input_base_path-DaigGRia.tmp/2/frontend/tests/app.lint-test.js

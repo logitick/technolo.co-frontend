@@ -1,1 +1,0 @@
-/home/paul/Documents/technolo.co/frontend/tmp/funnel-input_base_path-4NEGBvfC.tmp/components/welcome-page.js

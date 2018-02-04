@@ -1,1 +1,0 @@
-/home/paul/Documents/technolo.co/frontend/node_modules/ember-bootstrap/addon/mixins/size-class.js
