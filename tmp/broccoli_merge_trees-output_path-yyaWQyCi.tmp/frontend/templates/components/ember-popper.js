@@ -1,0 +1,1 @@
+/home/paul/Documents/technolo.co/frontend/tmp/broccoli_merge_trees-input_base_path-a3ifRBee.tmp/0/frontend/templates/components/ember-popper.js

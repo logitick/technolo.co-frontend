@@ -1,0 +1,1 @@
+/home/paul/Documents/technolo.co/frontend/tmp/broccoli_merge_trees-input_base_path-qJ0KirIx.tmp/0/assets/frontend.js

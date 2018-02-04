@@ -1,0 +1,1 @@
+/home/paul/Documents/technolo.co/frontend/node_modules/ember-bootstrap/addon/utils/transition-end.js
