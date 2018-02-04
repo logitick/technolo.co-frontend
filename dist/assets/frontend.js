@@ -1143,6 +1143,46 @@ define("frontend/instance-initializers/ember-data", ["exports", "ember-data/init
     initialize: _initializeStoreService.default
   };
 });
+define("frontend/pods/components/card/image-headline/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "ZixhFs/Q", "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/components/card/image-headline/template.hbs" } });
+});
+define("frontend/pods/components/layout/default-layout/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "mpC1gD5I", "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/components/layout/default-layout/template.hbs" } });
+});
+define('frontend/pods/news-dashboard/model', ['exports', 'ember-data'], function (exports, _emberData) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({});
+});
+define('frontend/pods/news-dashboard/route', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({});
+});
+define("frontend/pods/news-dashboard/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "sqSjielg", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/news-dashboard/template.hbs" } });
+});
 define('frontend/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   'use strict';
 
@@ -1164,7 +1204,13 @@ define('frontend/router', ['exports', 'frontend/config/environment'], function (
     rootURL: _environment.default.rootURL
   });
 
-  Router.map(function () {});
+  Router.map(function () {
+    this.route('news-dashboard');
+
+    this.route('components', function () {
+      this.route('bs-layout');
+    });
+  });
 
   exports.default = Router;
 });
@@ -1187,7 +1233,7 @@ define("frontend/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "AvkJ0bj1", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"welcome-page\"],false],[0,\"\\n\"],[0,\"\\n\"],[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "zp3yPJ2R", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[1,[18,\"outlet\"],false],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"nav\"],[9,\"class\",\"navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark\"],[7],[0,\"\\n  \"],[6,\"a\"],[9,\"class\",\"navbar-brand\"],[9,\"href\",\"#\"],[7],[0,\"Bottom navbar\"],[8],[0,\"\\n  \"],[6,\"button\"],[9,\"class\",\"navbar-toggler\"],[9,\"type\",\"button\"],[9,\"data-toggle\",\"collapse\"],[9,\"data-target\",\"#navbarCollapse\"],[9,\"aria-controls\",\"navbarCollapse\"],[9,\"aria-expanded\",\"false\"],[9,\"aria-label\",\"Toggle navigation\"],[7],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"navbar-toggler-icon\"],[7],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"collapse navbar-collapse\"],[9,\"id\",\"navbarCollapse\"],[7],[0,\"\\n    \"],[6,\"ul\"],[9,\"class\",\"navbar-nav mr-auto\"],[7],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item active\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Home \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"(current)\"],[8],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Link\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link disabled\"],[9,\"href\",\"#\"],[7],[0,\"Disabled\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item dropup\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link dropdown-toggle\"],[9,\"href\",\"https://getbootstrap.com\"],[9,\"id\",\"dropdown10\"],[9,\"data-toggle\",\"dropdown\"],[9,\"aria-haspopup\",\"true\"],[9,\"aria-expanded\",\"false\"],[7],[0,\"Dropup\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"dropdown-menu\"],[9,\"aria-labelledby\",\"dropdown10\"],[7],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Another action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Something else here\"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/templates/application.hbs" } });
 });
 define('frontend/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -1224,6 +1270,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+caa55614"});
+  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+42e52550"});
 }
 //# sourceMappingURL=frontend.map

@@ -78034,8 +78034,11 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _bsAccordion.default.extend({
-    classNames: ['panel-group']
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _bsAccordion.default;
+    }
   });
 });
 ;define('ember-bootstrap/components/bs-accordion/item', ['exports', 'ember-bootstrap/components/base/bs-accordion/item'], function (exports, _item) {
@@ -78045,15 +78048,15 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _item.default.extend({
-    classNames: ['panel'],
+    classNames: ['card'],
 
     /**
      * @property classTypePrefix
      * @type String
-     * @default 'panel'
+     * @default 'bg'
      * @protected
      */
-    classTypePrefix: 'panel'
+    classTypePrefix: 'bg'
   });
 });
 ;define('ember-bootstrap/components/bs-accordion/item/body', ['exports', 'ember-bootstrap/components/base/bs-accordion/item/body'], function (exports, _body) {
@@ -78076,7 +78079,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _title.default.extend({
-    classNames: ['panel-heading']
+    classNames: ['card-header']
   });
 });
 ;define('ember-bootstrap/components/bs-alert', ['exports', 'ember-bootstrap/components/base/bs-alert'], function (exports, _bsAlert) {
@@ -78086,7 +78089,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsAlert.default.extend({
-    classNameBindings: ['showAlert:in']
+    classNameBindings: ['showAlert:show']
   });
 });
 ;define('ember-bootstrap/components/bs-button-group', ['exports', 'ember-bootstrap/components/base/bs-button-group'], function (exports, _bsButtonGroup) {
@@ -78121,11 +78124,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _bsButton.default;
-    }
+  exports.default = _bsButton.default.extend({
+    type: 'secondary'
   });
 });
 ;define('ember-bootstrap/components/bs-carousel', ['exports', 'ember-bootstrap/components/base/bs-carousel'], function (exports, _bsCarousel) {
@@ -78135,10 +78135,10 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsCarousel.default.extend({
-    nextControlClassName: 'carousel-control right',
-    nextControlIcon: 'icon-next',
-    prevControlClassName: 'carousel-control left',
-    prevControlIcon: 'icon-prev'
+    nextControlClassName: 'carousel-control-next',
+    nextControlIcon: 'carousel-control-next-icon',
+    prevControlClassName: 'carousel-control-prev',
+    prevControlIcon: 'carousel-control-prev-icon'
   });
 });
 ;define('ember-bootstrap/components/bs-carousel/slide', ['exports', 'ember-bootstrap/components/base/bs-carousel/slide'], function (exports, _slide) {
@@ -78148,8 +78148,8 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _slide.default.extend({
-    classNameBindings: ['left', 'next', 'prev', 'right'],
-    classNames: ['item']
+    classNameBindings: ['left:carousel-item-left', 'next:carousel-item-next', 'prev:carousel-item-prev', 'right:carousel-item-right'],
+    classNames: ['carousel-item']
   });
 });
 ;define('ember-bootstrap/components/bs-collapse', ['exports', 'ember-bootstrap/components/base/bs-collapse'], function (exports, _bsCollapse) {
@@ -78159,7 +78159,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsCollapse.default.extend({
-    classNameBindings: ['showContent:in']
+    classNameBindings: ['showContent:show']
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown', ['exports', 'ember-bootstrap/components/base/bs-dropdown'], function (exports, _bsDropdown) {
@@ -78169,7 +78169,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsDropdown.default.extend({
-    classNameBindings: ['isOpen:open']
+    classNameBindings: ['inNav:nav-item', 'isOpen:show']
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown/button', ['exports', 'ember-bootstrap/components/base/bs-dropdown/button'], function (exports, _button) {
@@ -78192,10 +78192,62 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _menu.default.extend({
-    tagName: 'ul',
+    tagName: '',
 
-    classNames: ['dropdown-menu'],
-    classNameBindings: ['alignClass']
+    isOpen: Ember.computed({
+      get: function get() {
+        return false;
+      },
+      set: function set(key, value) {
+        var update = this.get('_popperApi.update');
+        update && update();
+        return value;
+      }
+    }),
+
+    flip: true,
+
+    _popperApi: null,
+
+    popperPlacement: Ember.computed('direction', 'align', function () {
+      var placement = 'bottom-start';
+
+      var _getProperties = this.getProperties('direction', 'align'),
+          direction = _getProperties.direction,
+          align = _getProperties.align;
+
+      if (direction === 'up') {
+        placement = 'top-start';
+        if (align === 'right') {
+          placement = 'top-end';
+        }
+      } else if (direction === 'left') {
+        placement = 'left-start';
+      } else if (direction === 'right') {
+        placement = 'right-start';
+      } else if (align === 'right') {
+        placement = 'bottom-end';
+      }
+      return placement;
+    }),
+
+    popperModifiers: Ember.computed('inNav', 'flip', function () {
+      return {
+        // @todo add offset config
+        applyStyle: {
+          enabled: !this.get('inNav')
+        },
+        flip: {
+          enabled: this.get('flip')
+        }
+      };
+    }),
+
+    actions: {
+      registerPopperApi: function registerPopperApi(api) {
+        this.set('_popperApi', api);
+      }
+    }
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown/menu/divider', ['exports', 'ember-bootstrap/components/base/bs-dropdown/menu/divider'], function (exports, _divider) {
@@ -78205,7 +78257,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _divider.default.extend({
-    classNames: ['divider']
+    classNames: ['dropdown-divider']
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown/menu/item', ['exports', 'ember-bootstrap/components/base/bs-dropdown/menu/item'], function (exports, _item) {
@@ -78215,7 +78267,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _item.default.extend({
-    tagName: 'li'
+    tagName: ''
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown/menu/link-to', ['exports', 'ember-bootstrap/components/base/bs-dropdown/menu/link-to'], function (exports, _linkTo) {
@@ -78224,11 +78276,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _linkTo.default;
-    }
+  exports.default = _linkTo.default.extend({
+    classNames: ['dropdown-item']
   });
 });
 ;define('ember-bootstrap/components/bs-dropdown/toggle', ['exports', 'ember-bootstrap/components/base/bs-dropdown/toggle'], function (exports, _toggle) {
@@ -78237,11 +78286,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _toggle.default;
-    }
+  exports.default = _toggle.default.extend({
+    classNameBindings: ['inNav:nav-link']
   });
 });
 ;define('ember-bootstrap/components/bs-form', ['exports', 'ember-bootstrap/components/base/bs-form'], function (exports, _bsForm) {
@@ -78253,10 +78299,7 @@ createDeprecatedModule('resolver');
   exports.default = _bsForm.default.extend({
     layoutClass: Ember.computed('formLayout', function () {
       var layout = this.get('formLayout');
-      var supportedTypes = ['vertical', 'horizontal', 'inline'];
-      (true && !(supportedTypes.indexOf(layout) >= 0) && Ember.assert('must provide a valid `formLayout` attribute.', supportedTypes.indexOf(layout) >= 0));
-
-      return layout === 'vertical' ? 'form' : 'form-' + layout;
+      return layout === 'inline' ? 'form-inline' : null;
     }).readOnly()
   });
 });
@@ -78286,44 +78329,33 @@ createDeprecatedModule('resolver');
     }
   });
 });
-;define('ember-bootstrap/components/bs-form/element/control/checkbox', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/checkbox'], function (exports, _checkbox) {
+;define('ember-bootstrap/components/bs-form/element/control/checkbox', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/checkbox', 'ember-bootstrap/mixins/control-validation'], function (exports, _checkbox, _controlValidation) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _checkbox.default;
-    }
+  exports.default = _checkbox.default.extend(_controlValidation.default, {
+    classNames: ['form-check-input']
   });
 });
-;define('ember-bootstrap/components/bs-form/element/control/input', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/input'], function (exports, _input) {
+;define('ember-bootstrap/components/bs-form/element/control/input', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/input', 'ember-bootstrap/mixins/control-validation', 'ember-bootstrap/mixins/size-class'], function (exports, _input, _controlValidation, _sizeClass) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _input.default;
-    }
+  exports.default = _input.default.extend(_controlValidation.default, _sizeClass.default, {
+    classTypePrefix: 'form-control'
   });
 });
-;define('ember-bootstrap/components/bs-form/element/control/textarea', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/textarea'], function (exports, _textarea) {
+;define('ember-bootstrap/components/bs-form/element/control/textarea', ['exports', 'ember-bootstrap/components/base/bs-form/element/control/textarea', 'ember-bootstrap/mixins/control-validation'], function (exports, _textarea, _controlValidation) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _textarea.default;
-    }
-  });
+  exports.default = _textarea.default.extend(_controlValidation.default);
 });
 ;define('ember-bootstrap/components/bs-form/element/errors', ['exports', 'ember-bootstrap/components/base/bs-form/element/errors'], function (exports, _errors) {
   'use strict';
@@ -78332,7 +78364,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _errors.default.extend({
-    feedbackClass: 'help-block'
+    feedbackClass: 'invalid-feedback'
   });
 });
 ;define('ember-bootstrap/components/bs-form/element/feedback-icon', ['exports', 'ember-bootstrap/components/base/bs-form/element/feedback-icon'], function (exports, _feedbackIcon) {
@@ -78355,7 +78387,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _helpText.default.extend({
-    classNames: ['help-block']
+    classNames: ['form-text']
   });
 });
 ;define('ember-bootstrap/components/bs-form/element/label', ['exports', 'ember-bootstrap/components/base/bs-form/element/label'], function (exports, _label) {
@@ -78365,7 +78397,28 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _label.default.extend({
-    tagName: ''
+    tagName: 'label',
+
+    classNames: [],
+    classNameBindings: ['invisibleLabel:sr-only', 'isHorizontal:col-form-label', 'isCheckbox:form-check-label', 'labelClass', 'sizeClass'],
+    attributeBindings: ['formElementId:for'],
+
+    sizeClass: Ember.computed('size', 'isHorizontal', function () {
+      if (!this.get('isHorizontal')) {
+        return;
+      }
+      var size = this.get('size');
+      return Ember.isBlank(size) ? null : 'col-form-label-' + size;
+    }),
+
+    /**
+     * Property for size styling, set to 'lg', 'sm'
+     *
+     * @property size
+     * @type String
+     * @public
+     */
+    size: null
   });
 });
 ;define('ember-bootstrap/components/bs-form/element/layout', ['exports', 'ember-bootstrap/components/base/bs-form/element/layout'], function (exports, _layout) {
@@ -78459,163 +78512,36 @@ createDeprecatedModule('resolver');
     }
   });
 });
-;define('ember-bootstrap/components/bs-form/group', ['exports', 'ember-bootstrap/components/base/bs-form/group', 'ember-bootstrap/config', 'ember-bootstrap/mixins/size-class'], function (exports, _group, _config, _sizeClass) {
+;define('ember-bootstrap/components/bs-form/group', ['exports', 'ember-bootstrap/components/base/bs-form/group'], function (exports, _group) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = _group.default.extend(_sizeClass.default, {
-    classNames: ['form-group'],
-    classNameBindings: ['validationClass', 'hasFeedback'],
-
-    classTypePrefix: 'form-group',
+  exports.default = _group.default.extend({
+    classNameBindings: ['isHorizontal:row', 'isCheckbox:form-check:form-group', 'isInlineCheckbox:form-check-inline'],
 
     /**
-     * Whether to show validation state icons.
-     * See http://getbootstrap.com/css/#forms-control-validation
+     * Indicates whether the type of the control widget equals `checkbox`
      *
-     * @property useIcons
-     * @type boolean
-     * @default true
-     * @public
-     */
-    useIcons: true,
-
-    /**
-     * Computed property which is true if the form group is showing a validation icon
-     *
-     * @property hasFeedback
+     * @property isCheckbox
      * @type boolean
      * @private
-     * @readonly
      */
-    hasFeedback: Ember.computed.and('hasValidation', 'useIcons', 'hasIconForValidationState').readOnly(),
+    isCheckbox: Ember.computed.equal('controlType', 'checkbox').readOnly(),
 
     /**
-     * The icon classes to be used for a feedback icon in a "success" validation state.
-     * Defaults to the usual glyphicon classes. This is ignored, and no feedback icon is
-     * rendered if `useIcons` is false.
+     * Indicates whether the form type equals `horizontal`
      *
-     * You can change this globally by setting the `formValidationSuccessIcon` property of
-     * the ember-bootstrap configuration in your config/environment.js file. If your are
-     * using FontAwesome for example:
-     *
-     * ```js
-     * ENV['ember-bootstrap'] = {
-       *   formValidationSuccessIcon: 'fa fa-check'
-       * }
-     * ```
-     *
-     * @property successIcon
-     * @type string
-     * @default 'glyphicon glyphicon-ok'
-     * @public
-     */
-    successIcon: _config.default.formValidationSuccessIcon,
-
-    /**
-     * The icon classes to be used for a feedback icon in a "error" validation state.
-     * Defaults to the usual glyphicon classes. This is ignored, and no feedback icon is
-     * rendered if `useIcons` is false.
-     *
-     * You can change this globally by setting the `formValidationErrorIcon` property of
-     * the ember-bootstrap configuration in your config/environment.js file. If your are
-     * using FontAwesome for example:
-     *
-     * ```js
-     * ENV['ember-bootstrap'] = {
-       *   formValidationErrorIcon: 'fa fa-times'
-       * }
-     * ```
-     *
-     * @property errorIcon
-     * @type string
-     * @public
-     */
-    errorIcon: _config.default.formValidationErrorIcon,
-
-    /**
-     * The icon classes to be used for a feedback icon in a "warning" validation state.
-     * Defaults to the usual glyphicon classes. This is ignored, and no feedback icon is
-     * rendered if `useIcons` is false.
-     *
-     * You can change this globally by setting the `formValidationWarningIcon` property of
-     * the ember-bootstrap configuration in your config/environment.js file. If your are
-     * using FontAwesome for example:
-     *
-     * ```js
-     * ENV['ember-bootstrap'] = {
-       *   formValidationWarningIcon: 'fa fa-warning'
-       * }
-     * ```
-     *
-     * @property warningIcon
-     * @type string
-     * @public
-     */
-    warningIcon: _config.default.formValidationWarningIcon,
-
-    /**
-     * The icon classes to be used for a feedback icon in a "info" validation state.
-     * Defaults to the usual glyphicon classes. This is ignored, and no feedback icon is
-     * rendered if `useIcons` is false.
-     *
-     * You can change this globally by setting the `formValidationInfoIcon` property of
-     * the ember-bootstrap configuration in your config/environment.js file. If your are
-     * using FontAwesome for example:
-     *
-     * ```js
-     * ENV['ember-bootstrap'] = {
-       *   formValidationInfoIcon: 'fa fa-info-circle
-       * }
-     * ```
-     *
-     * The "info" validation state is not supported in Bootstrap CSS, but can be easily added
-     * using the following LESS style:
-     * ```less
-     * .has-info {
-       *   .form-control-validation(@state-info-text; @state-info-text; @state-info-bg);
-       * }
-     * ```
-     *
-     * @property infoIcon
-     * @type string
-     * @public
-     */
-    infoIcon: _config.default.formValidationInfoIcon,
-
-    /**
-     * @property iconName
-     * @type string
-     * @readonly
-     * @private
-     */
-    iconName: Ember.computed('validation', function () {
-      var validation = this.get('validation') || 'success';
-      return this.get(validation + 'Icon');
-    }).readOnly(),
-
-    /**
-     * @property hasIconForValidationState
+     * @property isHorizontal
      * @type boolean
-     * @readonly
      * @private
      */
-    hasIconForValidationState: Ember.computed.notEmpty('iconName').readOnly(),
+    isHorizontal: Ember.computed.equal('formLayout', 'horizontal').readOnly(),
 
-    /**
-     * @property validationClass
-     * @type string
-     * @readonly
-     * @private
-     */
-    validationClass: Ember.computed('validation', function () {
-      var validation = this.get('validation');
-      if (!Ember.isBlank(validation)) {
-        return 'has-' + validation;
-      }
-    }).readOnly()
+    isInline: Ember.computed.equal('formLayout', 'inline').readOnly(),
+
+    isInlineCheckbox: Ember.computed.and('isCheckbox', 'isInline').readOnly()
   });
 });
 ;define('ember-bootstrap/components/bs-modal-simple', ['exports', 'ember-bootstrap/components/base/bs-modal-simple'], function (exports, _bsModalSimple) {
@@ -78638,7 +78564,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsModal.default.extend({
-    showClass: 'in'
+    showClass: 'show'
   });
 });
 ;define('ember-bootstrap/components/bs-modal/body', ['exports', 'ember-bootstrap/components/base/bs-modal/body'], function (exports, _body) {
@@ -78661,7 +78587,8 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _dialog.default.extend({
-    classNameBindings: ['showModal:in']
+    classNameBindings: ['showModal:show'],
+    centered: false
   });
 });
 ;define('ember-bootstrap/components/bs-modal/footer', ['exports', 'ember-bootstrap/components/base/bs-modal/footer'], function (exports, _footer) {
@@ -78709,11 +78636,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _title.default;
-    }
+  exports.default = _title.default.extend({
+    tagName: 'h5'
   });
 });
 ;define('ember-bootstrap/components/bs-nav', ['exports', 'ember-bootstrap/components/base/bs-nav'], function (exports, _bsNav) {
@@ -78723,7 +78647,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsNav.default.extend({
-    classNameBindings: ['stacked:nav-stacked']
+    classNameBindings: ['stacked:flex-column']
   });
 });
 ;define('ember-bootstrap/components/bs-nav/item', ['exports', 'ember-bootstrap/components/base/bs-nav/item'], function (exports, _item) {
@@ -78732,11 +78656,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _item.default;
-    }
+  exports.default = _item.default.extend({
+    classNames: ['nav-item']
   });
 });
 ;define('ember-bootstrap/components/bs-nav/link-to', ['exports', 'ember-bootstrap/components/base/bs-nav/link-to'], function (exports, _linkTo) {
@@ -78745,11 +78666,8 @@ createDeprecatedModule('resolver');
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _linkTo.default;
-    }
+  exports.default = _linkTo.default.extend({
+    classNames: ['nav-link']
   });
 });
 ;define('ember-bootstrap/components/bs-navbar', ['exports', 'ember-bootstrap/components/base/bs-navbar'], function (exports, _bsNavbar) {
@@ -78759,11 +78677,67 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bsNavbar.default.extend({
-    _positionPrefix: 'navbar-',
+    classNameBindings: ['breakpointClass', 'backgroundClass'],
+
+    type: Ember.computed('appliedType', {
+      get: function get() {
+        return this.get('appliedType');
+      },
+      set: function set(key, value) {
+        var newValue = !value || value === 'default' ? 'light' : value;
+        this.set('appliedType', newValue);
+        return newValue;
+      }
+    }),
+
+    appliedType: 'light',
+
+    /**
+     * Defines the responsive toggle breakpoint size. Options are the standard
+     * two character Bootstrap size abbreviations. Used to set the `navbar-expand[-*]`
+     * class. Set to `null` to disable collapsing.
+     *
+     * @property toggleBreakpoint
+     * @type String
+     * @default 'lg'
+     * @public
+     */
+    toggleBreakpoint: 'lg',
+
+    /**
+     * Sets the background color for the navbar. Can be any color
+     * in the set that composes the `bg-*` classes.
+     *
+     * @property backgroundColor
+     * @type String
+     * @default 'light'
+     * @public
+     */
+    backgroundColor: 'light',
+
+    breakpointClass: Ember.computed('toggleBreakpoint', function () {
+      var toggleBreakpoint = this.get('toggleBreakpoint');
+
+      if (Ember.isBlank(toggleBreakpoint)) {
+        return 'navbar-expand';
+      } else {
+        return 'navbar-expand-' + toggleBreakpoint;
+      }
+    }),
+
+    backgroundClass: Ember.computed('backgroundColor', function () {
+      var backgroundColor = this.get('backgroundColor');
+
+      return 'bg-' + backgroundColor;
+    }),
+
+    _validPositions: null,
+
+    _positionPrefix: '',
 
     init: function init() {
       this._super.apply(this, arguments);
-      this.set('_validPositions', ['fixed-top', 'fixed-bottom', 'static-top']);
+      this.set('_validPositions', ['fixed-top', 'fixed-bottom', 'sticky-top']);
     }
   });
 });
@@ -78813,7 +78787,27 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _toggle.default.extend({
-    classNames: ['navbar-toggle']
+    classNames: ['navbar-toggler'],
+    classNameBindings: ['alignmentClass'],
+
+    /**
+     * Defines the alignment of the toggler. Valid values are 'left' and 'right'
+     * to set the `navbar-toggler-*` class.
+     *
+     * @property align
+     * @type String
+     * @default null
+     * @public
+     */
+    align: null,
+
+    alignmentClass: Ember.computed('align', function () {
+      var align = this.get('align');
+
+      if (align) {
+        return 'navbar-toggler-' + align;
+      }
+    }).readOnly()
   });
 });
 ;define('ember-bootstrap/components/bs-popover', ['exports', 'ember-bootstrap/components/base/bs-popover'], function (exports, _bsPopover) {
@@ -78837,12 +78831,12 @@ createDeprecatedModule('resolver');
   });
   exports.default = _element.default.extend({
     popperClassNames: Ember.computed('fade', 'actualPlacement', 'showHelp', function () {
-      var classes = ['popover', 'ember-bootstrap-popover', this.get('actualPlacement')];
+      var classes = ['popover', 'bs-popover-' + this.get('actualPlacement')];
       if (this.get('fade')) {
         classes.push('fade');
       }
       if (this.get('showHelp')) {
-        classes.push('in');
+        classes.push('show');
       }
       return classes;
     }),
@@ -78851,13 +78845,13 @@ createDeprecatedModule('resolver');
      * @property titleClass
      * @private
      */
-    titleClass: 'popover-title',
+    titleClass: 'popover-header',
 
     /**
      * @property contentClass
      * @private
      */
-    contentClass: 'popover-content'
+    contentClass: 'popover-body'
   });
 });
 ;define('ember-bootstrap/components/bs-progress', ['exports', 'ember-bootstrap/components/base/bs-progress'], function (exports, _bsProgress) {
@@ -78880,15 +78874,15 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _bar.default.extend({
-    classNameBindings: ['progressBarAnimate:active'],
+    classNameBindings: ['progressBarAnimate:progress-bar-animated'],
 
     /**
      * @property classTypePrefix
      * @type String
-     * @default 'progress-bar'
+     * @default 'bg'
      * @protected
      */
-    classTypePrefix: 'progress-bar'
+    classTypePrefix: 'bg'
   });
 });
 ;define('ember-bootstrap/components/bs-tab', ['exports', 'ember-bootstrap/components/base/bs-tab'], function (exports, _bsTab) {
@@ -78911,7 +78905,7 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _pane.default.extend({
-    classNameBindings: ['showContent:in']
+    classNameBindings: ['showContent:show']
   });
 });
 ;define('ember-bootstrap/components/bs-tooltip', ['exports', 'ember-bootstrap/components/base/bs-tooltip'], function (exports, _bsTooltip) {
@@ -78934,19 +78928,13 @@ createDeprecatedModule('resolver');
     value: true
   });
   exports.default = _element.default.extend({
-    /**
-     * @property arrowClass
-     * @private
-     */
-    arrowClass: 'tooltip-arrow',
-
     popperClassNames: Ember.computed('fade', 'actualPlacement', 'showHelp', function () {
-      var classes = ['tooltip', 'ember-bootstrap-tooltip', this.get('actualPlacement')];
+      var classes = ['tooltip', 'bs-tooltip-' + this.get('actualPlacement')];
       if (this.get('fade')) {
         classes.push('fade');
       }
       if (this.get('showHelp')) {
-        classes.push('in');
+        classes.push('show');
       }
       return classes;
     })
@@ -79339,7 +79327,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "kyPPk7G8", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"bs-collapse\",null,[[\"ariaRole\",\"collapsed\",\"class\"],[\"tabpanel\",[20,[\"collapsed\"]],\"panel-collapse\"]],{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[\"panel-body \",[18,\"class\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-accordion/body.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "b58DyJKd", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"bs-collapse\",null,[[\"ariaRole\",\"collapsed\"],[\"tabpanel\",[20,[\"collapsed\"]]]],{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[\"card-body \",[18,\"class\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-accordion/body.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-accordion/item", ["exports"], function (exports) {
   "use strict";
@@ -79351,7 +79339,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "fmR08qh+", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"h4\"],[9,\"class\",\"panel-title\"],[7],[0,\"\\n  \"],[6,\"a\"],[9,\"href\",\"#\"],[7],[0,\"\\n    \"],[11,1],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-accordion/title.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "aAiSwTCa", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"h5\"],[9,\"class\",\"mb-0\"],[7],[0,\"\\n  \"],[6,\"a\"],[9,\"href\",\"#\"],[7],[0,\"\\n    \"],[11,1],[0,\"\\n  \"],[8],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-accordion/title.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-alert", ["exports"], function (exports) {
   "use strict";
@@ -79393,7 +79381,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "4RuJfqtR", "block": "{\"symbols\":[\"&default\"],\"statements\":[[11,1,[[25,\"hash\",null,[[\"item\",\"link-to\",\"divider\"],[[25,\"component\",[\"bs-dropdown/menu/item\"],null],[25,\"component\",[\"bs-dropdown/menu/link-to\"],null],[25,\"component\",[\"bs-dropdown/menu/divider\"],null]]]]]],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-dropdown/menu.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qcCglm0X", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"ember-popper\",null,[[\"class\",\"ariaRole\",\"placement\",\"popperTarget\",\"renderInPlace\",\"modifiers\",\"registerAPI\"],[[25,\"concat\",[\"dropdown-menu \",[20,[\"alignClass\"]],[25,\"if\",[[20,[\"isOpen\"]],\" show\"],null]],null],[20,[\"ariaRole\"]],[20,[\"popperPlacement\"]],[20,[\"toggleElement\"]],true,[20,[\"popperModifiers\"]],[25,\"action\",[[19,0,[]],\"registerPopperApi\"],null]]],{\"statements\":[[0,\"  \"],[11,1,[[25,\"hash\",null,[[\"item\",\"link-to\",\"divider\"],[[25,\"component\",[\"bs-dropdown/menu/item\"],null],[25,\"component\",[\"bs-dropdown/menu/link-to\"],null],[25,\"component\",[\"bs-dropdown/menu/divider\"],null]]]]]],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-dropdown/menu.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form", ["exports"], function (exports) {
   "use strict";
@@ -79429,31 +79417,31 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "o2F5P5Km", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[6,\"label\"],[7],[0,\"\\n    \"],[11,1],[0,\"\\n    \"],[1,[18,\"label\"],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"label\"],[10,\"class\",[26,[\"control-label \",[25,\"if\",[[20,[\"invisibleLabel\"]],\"sr-only\"],null],\" \",[18,\"labelClass\"]]]],[10,\"for\",[26,[[18,\"formElementId\"]]]],[7],[1,[18,\"label\"],false],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/label.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "qNhnLQPj", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null],[1,[18,\"label\"],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/label.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form/element/layout/horizontal", ["exports"], function (exports) {
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "Up6B33/w", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"hasLabel\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"component\",[[20,[\"labelComponent\"]]],[[\"labelClass\"],[[20,[\"horizontalLabelGridClass\"]]]]],false],[0,\"\\n  \"],[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"feedbackIconComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"],\" \",[18,\"horizontalInputOffsetGridClass\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"feedbackIconComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/horizontal.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Udf6RHun", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"hasLabel\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"component\",[[20,[\"labelComponent\"]]],[[\"labelClass\"],[[20,[\"horizontalLabelGridClass\"]]]]],false],[0,\"\\n  \"],[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"],\" \",[18,\"horizontalInputOffsetGridClass\"]]]],[7],[0,\"\\n    \"],[11,1],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n    \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/horizontal.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form/element/layout/horizontal/checkbox", ["exports"], function (exports) {
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "ApQpD0Pp", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"],\" \",[18,\"horizontalInputOffsetGridClass\"]]]],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"checkbox\"],[7],[0,\"\\n\"],[4,\"component\",[[20,[\"labelComponent\"]]],null,{\"statements\":[[0,\"      \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[8],[0,\"\\n  \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n  \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/horizontal/checkbox.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "luyHldRD", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[10,\"class\",[26,[[18,\"horizontalInputGridClass\"],\" \",[18,\"horizontalInputOffsetGridClass\"]]]],[7],[0,\"\\n\"],[4,\"component\",[[20,[\"labelComponent\"]]],null,{\"statements\":[[0,\"    \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n  \"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/horizontal/checkbox.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form/element/layout/vertical", ["exports"], function (exports) {
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "6Gd2SDJ9", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"hasLabel\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"component\",[[20,[\"labelComponent\"]]],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[11,1],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"feedbackIconComponent\"]]],null],false],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/vertical.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "Tl8trHl8", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"hasLabel\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"component\",[[20,[\"labelComponent\"]]],null],false],[0,\"\\n\"]],\"parameters\":[]},null],[11,1],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/vertical.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form/element/layout/vertical/checkbox", ["exports"], function (exports) {
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "Gat0cVrq", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"checkbox\"],[7],[0,\"\\n\"],[4,\"component\",[[20,[\"labelComponent\"]]],null,{\"statements\":[[0,\"    \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null],[8],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/vertical/checkbox.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "M2PKw5sP", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"component\",[[20,[\"labelComponent\"]]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},null],[1,[25,\"component\",[[20,[\"errorsComponent\"]]],null],false],[0,\"\\n\"],[1,[25,\"component\",[[20,[\"helpTextComponent\"]]],null],false],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-form/element/layout/vertical/checkbox.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-form/group", ["exports"], function (exports) {
   "use strict";
@@ -79495,7 +79483,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "ulNhrBPE", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"closeButton\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"bs-modal/header/close\",null,[[\"onClick\"],[[25,\"action\",[[19,0,[]],[20,[\"onClose\"]]],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null],[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[4,\"bs-modal/header/title\",null,null,{\"statements\":[[1,[18,\"title\"],false]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-modal/header.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fpMwHqc5", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[4,\"bs-modal/header/title\",null,null,{\"statements\":[[1,[18,\"title\"],false]],\"parameters\":[]},null],[0,\"\\n\"]],\"parameters\":[]}],[4,\"if\",[[20,[\"closeButton\"]]],null,{\"statements\":[[0,\"  \"],[1,[25,\"bs-modal/header/close\",null,[[\"onClick\"],[[25,\"action\",[[19,0,[]],[20,[\"onClose\"]]],null]]]],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-modal/header.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-modal/header/close", ["exports"], function (exports) {
   "use strict";
@@ -79525,7 +79513,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "0fWfSLeO", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[10,\"class\",[25,\"if\",[[20,[\"fluid\"]],\"container-fluid\",\"container\"],null],null],[7],[0,\"\\n  \"],[11,1,[[25,\"hash\",null,[[\"toggle\",\"content\",\"nav\",\"collapse\",\"expand\"],[[25,\"component\",[\"bs-navbar/toggle\"],[[\"onClick\",\"collapsed\"],[[25,\"action\",[[19,0,[]],\"toggleNavbar\"],null],[20,[\"_collapsed\"]]]]],[25,\"component\",[\"bs-navbar/content\"],[[\"collapsed\",\"onHidden\",\"onShown\"],[[20,[\"_collapsed\"]],[20,[\"onCollapsed\"]],[20,[\"onExpanded\"]]]]],[25,\"component\",[\"bs-navbar/nav\"],[[\"linkToComponent\"],[[25,\"component\",[\"bs-navbar/link-to\"],[[\"onCollapse\"],[[25,\"action\",[[19,0,[]],\"collapse\"],null]]]]]]],[25,\"action\",[[19,0,[]],\"collapse\"],null],[25,\"action\",[[19,0,[]],\"expand\"],null]]]]]],[0,\"\\n\"],[8],[0,\"\\n\"]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-navbar.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "AgR1mSmi", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[20,[\"fluid\"]]],null,{\"statements\":[[0,\"  \"],[11,1,[[25,\"hash\",null,[[\"toggle\",\"content\",\"nav\",\"collapse\",\"expand\"],[[25,\"component\",[\"bs-navbar/toggle\"],[[\"onClick\",\"collapsed\"],[[25,\"action\",[[19,0,[]],\"toggleNavbar\"],null],[20,[\"_collapsed\"]]]]],[25,\"component\",[\"bs-navbar/content\"],[[\"collapsed\",\"onHidden\",\"onShown\"],[[20,[\"_collapsed\"]],[20,[\"onCollapsed\"]],[20,[\"onExpanded\"]]]]],[25,\"component\",[\"bs-navbar/nav\"],[[\"linkToComponent\"],[[25,\"component\",[\"bs-navbar/link-to\"],[[\"onCollapse\"],[[25,\"action\",[[19,0,[]],\"collapse\"],null]]]]]]],[25,\"action\",[[19,0,[]],\"collapse\"],null],[25,\"action\",[[19,0,[]],\"expand\"],null]]]]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n    \"],[11,1,[[25,\"hash\",null,[[\"toggle\",\"content\",\"nav\",\"collapse\",\"expand\"],[[25,\"component\",[\"bs-navbar/toggle\"],[[\"onClick\",\"collapsed\"],[[25,\"action\",[[19,0,[]],\"toggleNavbar\"],null],[20,[\"_collapsed\"]]]]],[25,\"component\",[\"bs-navbar/content\"],[[\"collapsed\",\"onHidden\",\"onShown\"],[[20,[\"_collapsed\"]],[20,[\"onCollapsed\"]],[20,[\"onExpanded\"]]]]],[25,\"component\",[\"bs-navbar/nav\"],[[\"linkToComponent\"],[[25,\"component\",[\"bs-navbar/link-to\"],[[\"onCollapse\"],[[25,\"action\",[[19,0,[]],\"collapse\"],null]]]]]]],[25,\"action\",[[19,0,[]],\"collapse\"],null],[25,\"action\",[[19,0,[]],\"expand\"],null]]]]]],[0,\"\\n  \"],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-navbar.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-navbar/content", ["exports"], function (exports) {
   "use strict";
@@ -79537,7 +79525,7 @@ createDeprecatedModule('resolver');
   "use strict";
 
   exports.__esModule = true;
-  exports.default = Ember.HTMLBars.template({ "id": "LEk6rUPm", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"Toggle navigation\"],[8],[0,\"\\n  \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n  \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n  \"],[6,\"span\"],[9,\"class\",\"icon-bar\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-navbar/toggle.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "EqJih29E", "block": "{\"symbols\":[\"&default\"],\"statements\":[[4,\"if\",[[22,1]],null,{\"statements\":[[0,\"  \"],[11,1],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"  \"],[6,\"span\"],[9,\"class\",\"navbar-toggler-icon\"],[7],[8],[0,\"\\n\"]],\"parameters\":[]}]],\"hasEval\":false}", "meta": { "moduleName": "ember-bootstrap/templates/components/bs-navbar/toggle.hbs" } });
 });
 ;define("ember-bootstrap/templates/components/bs-popover", ["exports"], function (exports) {
   "use strict";

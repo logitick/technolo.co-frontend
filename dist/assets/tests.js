@@ -10,6 +10,16 @@ define('frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'app.js should pass ESLint\n\n');
   });
 
+  QUnit.test('pods/news-dashboard/model.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/news-dashboard/model.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('pods/news-dashboard/route.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'pods/news-dashboard/route.js should pass ESLint\n\n');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -110,6 +120,80 @@ define('frontend/tests/tests.lint-test', [], function () {
   QUnit.test('test-helper.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'test-helper.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/components/bs-layout/model-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/components/bs-layout/model-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/components/bs-layout/route-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/components/bs-layout/route-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/news-dashboard/model-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/news-dashboard/model-test.js should pass ESLint\n\n');
+  });
+
+  QUnit.test('unit/pods/news-dashboard/route-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/pods/news-dashboard/route-test.js should pass ESLint\n\n');
+  });
+});
+define('frontend/tests/unit/pods/components/bs-layout/model-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForModel)('components/bs-layout', 'Unit | Model | components/bs layout', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('frontend/tests/unit/pods/components/bs-layout/route-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:components/bs-layout', 'Unit | Route | components/bs layout', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
+  });
+});
+define('frontend/tests/unit/pods/news-dashboard/model-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForModel)('news-dashboard', 'Unit | Model | news dashboard', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('frontend/tests/unit/pods/news-dashboard/route-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('route:news-dashboard', 'Unit | Route | news dashboard', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var route = this.subject();
+    assert.ok(route);
   });
 });
 require('frontend/tests/test-helper');
