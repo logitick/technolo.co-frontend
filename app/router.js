@@ -7,11 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('news-dashboard');
-
-  this.route('components', function() {
-    this.route('bs-layout');
-  });
+  this.route('news-dashboard', { path: '/'});
 });
 
 export default Router;

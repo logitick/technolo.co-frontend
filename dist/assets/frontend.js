@@ -800,19 +800,6 @@ define('frontend/components/ember-popper', ['exports', 'ember-popper/components/
     }
   });
 });
-define('frontend/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _welcomePage) {
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(exports, 'default', {
-    enumerable: true,
-    get: function () {
-      return _welcomePage.default;
-    }
-  });
-});
 define('frontend/helpers/app-version', ['exports', 'frontend/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
   'use strict';
 
@@ -1149,7 +1136,15 @@ define("frontend/pods/components/card/image-headline/template", ["exports"], fun
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "ZixhFs/Q", "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/components/card/image-headline/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "sZqBEXOj", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"card mb-5\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-header bg-transparent\"],[7],[0,\"\\n    \"],[6,\"a\"],[9,\"href\",\"#\"],[7],[0,\"\\n      \"],[6,\"h2\"],[9,\"class\",\"card-title\"],[7],[1,[18,\"title\"],false],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"tint bv\"],[7],[0,\"\\n    \"],[6,\"img\"],[9,\"class\",\"card-img-top\"],[10,\"src\",[26,[\"https://placeimg.com/640/\",[18,\"h\"],\"/tech\"]]],[10,\"alt\",[26,[[18,\"title\"]]]],[7],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-body\"],[7],[0,\"\\n    \"],[6,\"p\"],[9,\"class\",\"card-text\"],[7],[11,1],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n    \"],[6,\"small\"],[9,\"class\",\"text-muted\"],[7],[0,\"Last updated 3 mins ago\"],[8],[0,\"\\n    \"],[6,\"div\"],[7],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-hacker-news-square\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-reddit\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-dribbble\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-medium\"],[7],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/components/card/image-headline/template.hbs" } });
+});
+define("frontend/pods/components/card/text-headline/template", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "XbQ2glKR", "block": "{\"symbols\":[\"&default\"],\"statements\":[[6,\"div\"],[9,\"class\",\"card\"],[7],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-body\"],[7],[0,\"\\n    \"],[6,\"h2\"],[9,\"class\",\"card-title\"],[7],[1,[18,\"title\"],false],[8],[0,\"\\n    \"],[6,\"p\"],[9,\"class\",\"card-text\"],[7],[11,1],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"card-footer\"],[7],[0,\"\\n    \"],[6,\"small\"],[9,\"class\",\"text-muted\"],[7],[0,\"Last updated 3 mins ago\"],[8],[0,\"\\n    \"],[6,\"div\"],[7],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-hacker-news-square\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-reddit\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-dribbble\"],[7],[8],[0,\"\\n      \"],[6,\"i\"],[9,\"class\",\"fab fa-medium\"],[7],[8],[0,\"\\n    \"],[8],[0,\"\\n\\n  \"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/components/card/text-headline/template.hbs" } });
 });
 define("frontend/pods/components/layout/default-layout/template", ["exports"], function (exports) {
   "use strict";
@@ -1181,7 +1176,7 @@ define("frontend/pods/news-dashboard/template", ["exports"], function (exports) 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "sqSjielg", "block": "{\"symbols\":[],\"statements\":[[1,[18,\"outlet\"],false]],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/news-dashboard/template.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "HdHuKS1W", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"card-columns\"],[7],[0,\"\\n\"],[4,\"card/image-headline\",null,[[\"title\",\"h\"],[\"How this works\",300]],{\"statements\":[[0,\"    \"],[6,\"p\"],[7],[0,\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. \"],[6,\"a\"],[9,\"href\",\"http://loripsum.net/\"],[9,\"target\",\"_blank\"],[7],[0,\"Mihi enim satis est, ipsis non satis.\"],[8],[0,\" Equidem, sed audistine modo de Carneade? Non igitur bene. Duo Reges: constructio interrete. Quid enim possumus hoc agere divinius? Quod ea non occurrentia fingunt, vincunt Aristonem; \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"card/text-headline\",null,[[\"title\"],[\"How this works\"]],{\"statements\":[[0,\"    \"],[6,\"p\"],[7],[0,\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. \"],[6,\"a\"],[9,\"href\",\"http://loripsum.net/\"],[9,\"target\",\"_blank\"],[7],[0,\"Mihi enim satis est, ipsis non satis.\"],[8],[0,\" Equidem, sed audistine modo de Carneade? Non igitur bene. Duo Reges: constructio interrete. Quid enim possumus hoc agere divinius? Quod ea non occurrentia fingunt, vincunt Aristonem; \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"card/image-headline\",null,[[\"title\",\"h\"],[\"How this works\",200]],{\"statements\":[[0,\"    \"],[6,\"p\"],[7],[0,\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Satis est ad hoc responsum. Hoc non est positum in nostra actione. Haec quo modo conveniant, non sane intellego. \"],[6,\"i\"],[7],[0,\"Uterque enim summo bono fruitur, id est voluptate.\"],[8],[0,\" Iam id ipsum absurdum, maximum malum neglegi. \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"card/image-headline\",null,[[\"title\",\"h\"],[\"How this works\",350]],{\"statements\":[[0,\"    \"],[6,\"p\"],[7],[0,\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Causa autem fuit huc veniendi ut quosdam hinc libros promerem. Ex quo, id quod omnes expetunt, beate vivendi ratio inveniri et comparari potest. Quae sequuntur igitur? \"],[6,\"i\"],[7],[0,\"Sed eum qui audiebant, quoad poterant, defendebant sententiam suam.\"],[8],[0,\" Beatus autem esse in maximarum rerum timore nemo potest. Quamquam haec quidem praeposita recte et reiecta dicere licebit. \"],[6,\"b\"],[7],[0,\"Duo Reges: constructio interrete.\"],[8],[0,\" \"],[6,\"a\"],[9,\"href\",\"http://loripsum.net/\"],[9,\"target\",\"_blank\"],[7],[0,\"Istic sum, inquit.\"],[8],[0,\" Huius ego nunc auctoritatem sequens idem faciam. Invidiosum nomen est, infame, suspectum. \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"card/image-headline\",null,[[\"title\",\"h\"],[\"How this works\",250]],{\"statements\":[[0,\"    \"],[6,\"p\"],[7],[0,\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ea possunt paria non esse. Bonum valitudo: miser morbus. Duo Reges: constructio interrete. \"],[6,\"b\"],[7],[0,\"An nisi populari fama?\"],[8],[0,\" Aliter enim explicari, quod quaeritur, non potest. Iam in altera philosophiae parte. \"],[8],[0,\"\\n\"]],\"parameters\":[]},null],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/pods/news-dashboard/template.hbs" } });
 });
 define('frontend/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   'use strict';
@@ -1205,11 +1200,7 @@ define('frontend/router', ['exports', 'frontend/config/environment'], function (
   });
 
   Router.map(function () {
-    this.route('news-dashboard');
-
-    this.route('components', function () {
-      this.route('bs-layout');
-    });
+    this.route('news-dashboard', { path: '/' });
   });
 
   exports.default = Router;
@@ -1233,7 +1224,7 @@ define("frontend/templates/application", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "zp3yPJ2R", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container\"],[7],[0,\"\\n  \"],[1,[18,\"outlet\"],false],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"nav\"],[9,\"class\",\"navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark\"],[7],[0,\"\\n  \"],[6,\"a\"],[9,\"class\",\"navbar-brand\"],[9,\"href\",\"#\"],[7],[0,\"Bottom navbar\"],[8],[0,\"\\n  \"],[6,\"button\"],[9,\"class\",\"navbar-toggler\"],[9,\"type\",\"button\"],[9,\"data-toggle\",\"collapse\"],[9,\"data-target\",\"#navbarCollapse\"],[9,\"aria-controls\",\"navbarCollapse\"],[9,\"aria-expanded\",\"false\"],[9,\"aria-label\",\"Toggle navigation\"],[7],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"navbar-toggler-icon\"],[7],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"collapse navbar-collapse\"],[9,\"id\",\"navbarCollapse\"],[7],[0,\"\\n    \"],[6,\"ul\"],[9,\"class\",\"navbar-nav mr-auto\"],[7],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item active\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Home \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"(current)\"],[8],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Link\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link disabled\"],[9,\"href\",\"#\"],[7],[0,\"Disabled\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item dropup\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link dropdown-toggle\"],[9,\"href\",\"https://getbootstrap.com\"],[9,\"id\",\"dropdown10\"],[9,\"data-toggle\",\"dropdown\"],[9,\"aria-haspopup\",\"true\"],[9,\"aria-expanded\",\"false\"],[7],[0,\"Dropup\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"dropdown-menu\"],[9,\"aria-labelledby\",\"dropdown10\"],[7],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Another action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Something else here\"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/templates/application.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "tM6IYpwP", "block": "{\"symbols\":[],\"statements\":[[6,\"div\"],[9,\"class\",\"container-fluid mb-5\"],[7],[0,\"\\n  \"],[1,[18,\"outlet\"],false],[0,\"\\n\"],[8],[0,\"\\n\"],[6,\"nav\"],[9,\"class\",\"navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark\"],[7],[0,\"\\n  \"],[6,\"a\"],[9,\"class\",\"navbar-brand\"],[9,\"href\",\"#\"],[7],[0,\"Bottom navbar\"],[8],[0,\"\\n  \"],[6,\"button\"],[9,\"class\",\"navbar-toggler\"],[9,\"type\",\"button\"],[9,\"data-toggle\",\"collapse\"],[9,\"data-target\",\"#navbarCollapse\"],[9,\"aria-controls\",\"navbarCollapse\"],[9,\"aria-expanded\",\"false\"],[9,\"aria-label\",\"Toggle navigation\"],[7],[0,\"\\n    \"],[6,\"span\"],[9,\"class\",\"navbar-toggler-icon\"],[7],[8],[0,\"\\n  \"],[8],[0,\"\\n  \"],[6,\"div\"],[9,\"class\",\"collapse navbar-collapse\"],[9,\"id\",\"navbarCollapse\"],[7],[0,\"\\n    \"],[6,\"ul\"],[9,\"class\",\"navbar-nav mr-auto\"],[7],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item active\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Home \"],[6,\"span\"],[9,\"class\",\"sr-only\"],[7],[0,\"(current)\"],[8],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link\"],[9,\"href\",\"#\"],[7],[0,\"Link\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link disabled\"],[9,\"href\",\"#\"],[7],[0,\"Disabled\"],[8],[0,\"\\n      \"],[8],[0,\"\\n      \"],[6,\"li\"],[9,\"class\",\"nav-item dropup\"],[7],[0,\"\\n        \"],[6,\"a\"],[9,\"class\",\"nav-link dropdown-toggle\"],[9,\"href\",\"https://getbootstrap.com\"],[9,\"id\",\"dropdown10\"],[9,\"data-toggle\",\"dropdown\"],[9,\"aria-haspopup\",\"true\"],[9,\"aria-expanded\",\"false\"],[7],[0,\"Dropup\"],[8],[0,\"\\n        \"],[6,\"div\"],[9,\"class\",\"dropdown-menu\"],[9,\"aria-labelledby\",\"dropdown10\"],[7],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Another action\"],[8],[0,\"\\n          \"],[6,\"a\"],[9,\"class\",\"dropdown-item\"],[9,\"href\",\"#\"],[7],[0,\"Something else here\"],[8],[0,\"\\n        \"],[8],[0,\"\\n      \"],[8],[0,\"\\n    \"],[8],[0,\"\\n  \"],[8],[0,\"\\n\"],[8]],\"hasEval\":false}", "meta": { "moduleName": "frontend/templates/application.hbs" } });
 });
 define('frontend/templates/components/ember-popper', ['exports', 'ember-popper/templates/components/ember-popper'], function (exports, _emberPopper) {
   'use strict';
@@ -1270,6 +1261,6 @@ catch(err) {
 });
 
 if (!runningTests) {
-  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+42e52550"});
+  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+64abcf7f"});
 }
 //# sourceMappingURL=frontend.map

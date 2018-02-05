@@ -1,3 +1,4 @@
+@import url("https://use.fontawesome.com/releases/v5.0.6/css/all.css");
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -6025,5 +6026,28 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered th,
   .table-bordered td {
     border: 1px solid #ddd !important; } }
+
+.tint {
+  position: relative;
+  float: left;
+  cursor: pointer; }
+  .tint:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all .3s linear;
+    opacity: .8; }
+  .tint.grass:before {
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+  .tint.bv:before {
+    background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); }
+  .tint.orange:before {
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%); }
 
 /*# sourceMappingURL=frontend.css.map */
